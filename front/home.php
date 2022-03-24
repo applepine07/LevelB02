@@ -117,12 +117,11 @@
 <script>
     $('.post').first().show();
     $('.tag').first().addClass('active');
-    $('.tag').on('click', function() {
-        let idx = $(this).index();
+    $('.tag').on('click',function(){
+        let idx=$(this).index();
         $('.tag').removeClass('active');
         $(this).addClass('active');
         $('.post').hide();
         $('.post').eq(idx).show();
-
     })
 </script>

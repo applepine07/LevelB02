@@ -32,18 +32,19 @@
             acc: $('#acc').val(),
             pw: $('#pw').val()
         }
-        $.post("api/chk_acc.php", {
-            acc: user.acc
-        }, (chk) => {
+        // 先檢查帳號是否存在
+        $.post("api/chk_acc.php", {acc: user.acc}, (chk) => {
             if (parseInt(chk) == 0) {
                 alert("查無此帳號");
                 reset();
             } else {
+                // 帳號有存在就檢查密碼
                 $.post("api/chk_pw.php", user, (chk) => {
                     if(parseInt(chk)==0){
                         alert("密碼錯誤");
                         reset();
                     }else{
+                        // 帳號、密碼正確就檢查是否為管理者
                         if(user.acc=='admin'){
                             location.href='back.php';
                         }else{

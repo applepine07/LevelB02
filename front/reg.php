@@ -42,19 +42,25 @@
             pw2: $('#pw2').val(),
             email: $('#email').val(),
         }
-        if (form.acc == '' || form.pw == '' || form.pw2 == '' || form.email == '') {
+        // ↓↓↓高級用法，如果物件中form表單value值，是空值的鍵值大於等於0，就代表有空值
+        if(Object.values(form).indexOf('')>=0){
+        // if (form.acc == '' || form.pw == '' || form.pw2 == '' || form.email == '') {
             alert("不得空白");
         } else {
             if (form.pw != form.pw2) {
                 alert("密碼錯誤");
                 reset();
             } else {
+                // 如果2密碼驗證沒錯就驗證帳號是否已存在
                 $.post("api/chk_acc.php",{acc:form.acc},(chk)=>{
                     if(parseInt(chk)==1){
                         alert("帳號重覆");
                     }else{
+                        // 帳號沒重覆就讓他註冊，先刪掉資料表中沒有的pw2，方便作業
                         delete form.pw2;
+                        // 注意以下的form不要打成{form}
                         $.post("api/reg.php",form,(res)=>{
+                            // ↓↓↓後端傳回res我們前端用alert表現，檢查用而已
                             // alert(res);
                             alert("註冊成功");
                             location.href='?do=login';
