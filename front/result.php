@@ -7,7 +7,9 @@ $subject = $Que->find($_GET['id']);
         <?php
         $rows = $Que->all(['parent' => $_GET['id']]);
         foreach ($rows as $key => $row) {
+            // 如果分母為0(也就是這主題還沒有人投票)，就為1
             $div = ($subject['count'] == 0) ? 1 : $subject['count'];
+            // 四捨五入後取2位，這時應是0.xx
             $rate = round($row['count'] / $div, 2);
         ?>
             <div style="display: flex;">
