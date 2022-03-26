@@ -15,21 +15,30 @@
 </div>
 
 <script>
+    // 預設先顯示第一分類的文章列表
     getlist(1);
     $('.tag').on("click",function(){
         let navtag=$(this).text();
         $('#navtag').text(navtag);
+        // 取得這分類的數字↓↓↓
         let type=$(this).data('type');
+        // 使用分類數字取得該分類的文章列表
         getlist(type);
     })
 
+    // 得到文章列表
     function getlist(type){
         $.get("api/getlist.php",{type},(list)=>{
+            // 取得後在該id填入內容
             $('#newslist').html(list);
+            // 所有的文章隱藏
             $('#news').hide();
+            // 文章列表顯示
             $('#newslist').show();
         })
     }
+
+    // 得到文章內容
     function getnews(id){
         $.get("api/getnews.php",{id},(news)=>{
             $('#news').html(news);

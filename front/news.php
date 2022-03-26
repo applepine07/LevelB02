@@ -29,8 +29,6 @@
                     <div class="full" style="display: none;"><?= nl2br($row['text']); ?></div>
                 </td>
                 <td>
-
-
                     <?php
                     if (isset($_SESSION['login'])) {
                         $chk = $Log->math('count', '*', ['news' => $row['id'], 'user' => $_SESSION['login']]);
